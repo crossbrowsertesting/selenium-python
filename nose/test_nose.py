@@ -4,7 +4,7 @@ import unittest
 from selenium import webdriver
 
 USERNAME = "mikeh"
-API_KEY = "u31631e932d1e9be"
+API_KEY = ""
 
 
 class SeleniumCBT(unittest.TestCase):
