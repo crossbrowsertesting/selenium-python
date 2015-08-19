@@ -3,7 +3,7 @@ from selenium import webdriver
 import time
 
 USERNAME = "mikeh"
-API_KEY = "u31631e932d1e9be"
+API_KEY = ""
 
 
 def get_browser(caps):
