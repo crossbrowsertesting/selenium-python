@@ -2,8 +2,8 @@ from threading import Thread
 from selenium import webdriver
 import time
 
-USERNAME = "mikeh"
-API_KEY = ""
+USERNAME = "USERNAME"
+API_KEY = "API_KEY"
 
 
 def get_browser(caps):
