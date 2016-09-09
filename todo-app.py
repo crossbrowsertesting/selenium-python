@@ -24,10 +24,10 @@ class SeleniumCBT(unittest.TestCase):
 
         caps = {}
 
-        caps['name'] = 'Selenium Test Example'
+        caps['name'] = 'Todo App - Selenium Test Example'
         caps['build'] = '1.0'
-        caps['browser_api_name'] = 'IE10'
-        caps['os_api_name'] = 'Win7x64-C2'
+        caps['browser_api_name'] = 'FF46'
+        caps['os_api_name'] = 'Win8.1'
         caps['screen_resolution'] = '1024x768'
         caps['record_video'] = 'true'
         caps['record_network'] = 'true'
