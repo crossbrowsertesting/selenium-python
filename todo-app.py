@@ -9,7 +9,7 @@ import unittest
 from selenium import webdriver
 import requests
 
-class SeleniumCBT(unittest.TestCase):
+class TodoAppTest(unittest.TestCase):
     def setUp(self):
 
         # Put your username and authey below
@@ -24,7 +24,7 @@ class SeleniumCBT(unittest.TestCase):
 
         caps = {}
 
-        caps['name'] = 'Todo App - Selenium Test Example'
+        caps['name'] = 'Todo App Example'
         caps['build'] = '1.0'
         caps['browser_api_name'] = 'FF46'
         caps['os_api_name'] = 'Win8.1'

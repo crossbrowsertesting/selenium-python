@@ -1,5 +1,5 @@
 # Please visit http://selenium-python.readthedocs.org/en/latest/index.html for detailed installation and instructions
-# Getting started: http://docs.seleniumhq.org/docs/03_webdriver.jsp
+# Getting started: http://docs.seleniumhq.org/
 # API details: https://github.com/SeleniumHQ/selenium#selenium
 
 # Requests is the easiest way to make RESTful API calls in Python. You can install it by following the instructions here:
@@ -8,8 +8,12 @@
 import unittest
 from selenium import webdriver
 import requests
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver import ActionChains
 
-class BasicTest(unittest.TestCase):
+class DragAndDrop(unittest.TestCase):
     def setUp(self):
 
         # Put your username and authey below
@@ -24,13 +28,13 @@ class BasicTest(unittest.TestCase):
 
         caps = {}
 
-        caps['name'] = 'Basic Example'
+        caps['name'] = 'Drag-and-Drop Example'
         caps['build'] = '1.0'
-        caps['browser_api_name'] = 'Safari8'
-        caps['os_api_name'] = 'Mac10.10'
+        caps['browser_api_name'] = 'Chrome53'
+        caps['os_api_name'] = 'Win10'
         caps['screen_resolution'] = '1024x768'
         caps['record_video'] = 'true'
-        caps['record_network'] = 'true' 
+        caps['record_network'] = 'true'
 
         # start the remote browser on our server
         self.driver = webdriver.Remote(
@@ -45,26 +49,38 @@ class BasicTest(unittest.TestCase):
         try:
             # load the page url
             print('Loading Url')
-            self.driver.get('http://crossbrowsertesting.github.io/selenium_example_page.html')
+            self.driver.get('http://crossbrowsertesting.github.io/drag-and-drop.html')
 
             # maximize the window - DESKTOPS ONLY
-            #print('Maximizing window')
-            #self.driver.maximize_window()
-            
-            #check the title
-            print('Checking title')
-            self.assertEqual("Selenium Test Example Page", self.driver.title)
+            # print('Maximizing window')
+            # self.driver.maximize_window()
 
-            # if we are still in the try block after all of our assertions that 
+            # grab the first element
+            print('Grabbing draggable element')
+            draggable = self.driver.find_element_by_id("draggable")
+            
+            # then the second element
+            print('Grabbing the droppable element')
+            droppable = self.driver.find_element_by_id("droppable")
+            
+            # we use ActionChains to move the element
+            print('Dragging the element')
+            actionChains = ActionChains(self.driver)
+            actionChains.drag_and_drop(draggable, droppable).perform()
+
+            # let's assert that the droppable element is in the state we want it to be
+            droppableText = self.driver.find_element_by_xpath('//*[@id="droppable"]/p').text
+            self.assertEqual('Dropped!', droppableText)
+
+            print("Taking snapshot")
+            snapshot_hash = self.api_session.post('https://crossbrowsertesting.com/api/v3/selenium/' + self.driver.session_id + '/snapshots').json()['hash']
+
+            # if we are still in the try block after all of our assertions that
             # means our test has had no failures, so we set the status to "pass"
             self.test_result = 'pass'
 
         except AssertionError as e:
-
-            # if any assertions are false, we take a snapshot of the screen, log 
-            # the error message, and set the score to "during tearDown()".
-
-            snapshot_hash = self.api_session.post('https://crossbrowsertesting.com/api/v3/selenium/' + self.driver.session_id + '/snapshots').json()['hash']
+            # log the error message, and set the score to "during tearDown()".
             self.api_session.put('https://crossbrowsertesting.com/api/v3/selenium/' + self.driver.session_id + '/snapshots/' + snapshot_hash,
                 data={'description':"AssertionError: " + str(e)})
             self.test_result = 'fail'
@@ -76,7 +92,7 @@ class BasicTest(unittest.TestCase):
         # Here we make the api call to set the test's score.
         # Pass it it passes, fail if an assertion fails, unset if the test didn't finish
         if self.test_result is not None:
-            self.api_session.put('https://crossbrowsertesting.com/api/v3/selenium/' + self.driver.session_id, 
+            self.api_session.put('https://crossbrowsertesting.com/api/v3/selenium/' + self.driver.session_id,
                 data={'action':'set_score', 'score':self.test_result})
 
 
