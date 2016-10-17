@@ -20,13 +20,13 @@ browsers_waiting = []
 
 
 def get_browser_and_wait(browser_data):
-    print "starting %s\n" % browser_data["browser_api_name"]
+    print ("starting %s\n" % browser_data["browser_api_name"])
     browser = get_browser(browser_data)
     browser.get("http://crossbrowsertesting.com")
     browsers_waiting.append({"data": browser_data, "driver": browser})
-    print "%s ready" % browser_data["browser_api_name"]
+    print ("%s ready" % browser_data["browser_api_name"])
     while len(browsers_waiting) < len(browsers):
-        print "working on %s.... please wait" % browser_data["browser_api_name"]
+        print ("working on %s.... please wait" % browser_data["browser_api_name"])
         browser.get("http://crossbrowsertesting.com")
         time.sleep(3)
 
@@ -40,7 +40,7 @@ for i, browser in enumerate(browsers):
 for thread in threads:
     thread.join()
 
-print "all browsers ready"
+print ("all browsers ready")
 for i, b in enumerate(browsers_waiting):
-    print "browser %s's title: %s" % (b["data"]["name"], b["driver"].title)
+    print ("browser %s's title: %s" % (b["data"]["name"], b["driver"].title))
     b["driver"].quit()
