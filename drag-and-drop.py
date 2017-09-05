@@ -30,9 +30,10 @@ class DragAndDrop(unittest.TestCase):
 
         caps['name'] = 'Drag-and-Drop Example'
         caps['build'] = '1.0'
-        caps['browser_api_name'] = 'Chrome53'
-        caps['os_api_name'] = 'Win10'
-        caps['screen_resolution'] = '1024x768'
+        caps['browserName'] = 'Chrome'
+        caps['version'] = '53'
+        caps['platform'] = 'Windows 10'
+        caps['screenResolution'] = '1366x768'
         caps['record_video'] = 'true'
         caps['record_network'] = 'true'
 
