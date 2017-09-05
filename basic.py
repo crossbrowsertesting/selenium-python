@@ -26,9 +26,10 @@ class BasicTest(unittest.TestCase):
 
         caps['name'] = 'Basic Example'
         caps['build'] = '1.0'
-        caps['browser_api_name'] = 'Safari8'
-        caps['os_api_name'] = 'Mac10.10'
-        caps['screen_resolution'] = '1024x768'
+        caps['browserName'] = 'Safari'
+        caps['version'] = '8'
+        caps['platform'] = 'Mac OSX 10.10'
+        caps['screenResolution'] = '1366x768'
         caps['record_video'] = 'true'
         caps['record_network'] = 'true' 
 
