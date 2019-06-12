@@ -31,7 +31,7 @@ class BasicTest(unittest.TestCase):
         caps['platform'] = 'Mac OSX 10.10'
         caps['screenResolution'] = '1366x768'
         caps['record_video'] = 'true'
-        caps['record_network'] = 'true' 
+        caps['record_network'] = 'false' 
 
         # start the remote browser on our server
         self.driver = webdriver.Remote(
@@ -51,18 +51,18 @@ class BasicTest(unittest.TestCase):
             # maximize the window - DESKTOPS ONLY
             #print('Maximizing window')
             #self.driver.maximize_window()
-            
+
             #check the title
             print('Checking title')
             self.assertEqual("Selenium Test Example Page", self.driver.title)
 
-            # if we are still in the try block after all of our assertions that 
+            # if we are still in the try block after all of our assertions that
             # means our test has had no failures, so we set the status to "pass"
             self.test_result = 'pass'
 
         except AssertionError as e:
 
-            # if any assertions are false, we take a snapshot of the screen, log 
+            # if any assertions are false, we take a snapshot of the screen, log
             # the error message, and set the score to "during tearDown()".
 
             snapshot_hash = self.api_session.post('https://crossbrowsertesting.com/api/v3/selenium/' + self.driver.session_id + '/snapshots').json()['hash']
@@ -77,7 +77,7 @@ class BasicTest(unittest.TestCase):
         # Here we make the api call to set the test's score.
         # Pass it it passes, fail if an assertion fails, unset if the test didn't finish
         if self.test_result is not None:
-            self.api_session.put('https://crossbrowsertesting.com/api/v3/selenium/' + self.driver.session_id, 
+            self.api_session.put('https://crossbrowsertesting.com/api/v3/selenium/' + self.driver.session_id,
                 data={'action':'set_score', 'score':self.test_result})
 
 

@@ -35,7 +35,7 @@ class DragAndDrop(unittest.TestCase):
         caps['platform'] = 'Windows 10'
         caps['screenResolution'] = '1366x768'
         caps['record_video'] = 'true'
-        caps['record_network'] = 'true'
+        caps['record_network'] = 'false'
 
         # start the remote browser on our server
         self.driver = webdriver.Remote(
@@ -59,11 +59,11 @@ class DragAndDrop(unittest.TestCase):
             # grab the first element
             print('Grabbing draggable element')
             draggable = self.driver.find_element_by_id("draggable")
-            
+
             # then the second element
             print('Grabbing the droppable element')
             droppable = self.driver.find_element_by_id("droppable")
-            
+
             # we use ActionChains to move the element
             print('Dragging the element')
             actionChains = ActionChains(self.driver)

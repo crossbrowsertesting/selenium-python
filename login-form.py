@@ -34,7 +34,7 @@ class LoginForm(unittest.TestCase):
         caps['platform'] = 'Windows 10'
         caps['screenResolution'] = '1366x768'
         caps['record_video'] = 'true'
-        caps['record_network'] = 'true'
+        caps['record_network'] = 'false'
 
         # start the remote browser on our server
         self.driver = webdriver.Remote(
@@ -58,15 +58,15 @@ class LoginForm(unittest.TestCase):
             # we'll start the login process by entering our username
             print('Entering username')
             self.driver.find_element_by_name('username').send_keys('tester@crossbrowsertesting.com')
-            
+
             # then by entering our password
             print('Entering password')
             self.driver.find_element_by_name('password').send_keys('test123')
-            
+
             # now we'll click the login button
             print('Logging in')
             self.driver.find_element_by_css_selector('body > div > div > div > div > form > div.form-actions > button').click()
-            
+
             # if we've passed the login, we should see the welcome text
 
             elem = WebDriverWait(self.driver, 10).until(

@@ -31,7 +31,7 @@ class TodoAppTest(unittest.TestCase):
         caps['platform'] = 'Windows 10'
         caps['screenResolution'] = '1366x768'
         caps['record_video'] = 'true'
-        caps['record_network'] = 'true'
+        caps['record_network'] = 'false'
 
         # start the remote browser on our server
         self.driver = webdriver.Remote(
